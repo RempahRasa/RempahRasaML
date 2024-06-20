@@ -1,7 +1,7 @@
 # RempahRasaML
 
 ## Introduction
-Repository contains image classification models with 31 classes. The models are trained using custom CNN methods and transfer learning to recognize Indonesian spices images. Four architectures that we use for transfer learning includes: InceptionV3, DenseNet121, EfficientNetV2B0, and MobileNetV3. After the training, we find out that the model with the highest accuracy is DenseNet121 architecture with 94.37% accuracy on test dataset.
+Repository contains image classification models with 31 classes. The models are trained using custom CNN methods and transfer learning to recognize Indonesian spices images. Five architectures that we use for transfer learning includes: InceptionV3, DenseNet121, EfficientNetV2B0, MobileNetV3, and ResNet50. After the training, we find out that the model with the highest accuracy is DenseNet121 architecture with 94.37% accuracy on test dataset.
 
 ## Spices Classification Model
 ### Dataset
