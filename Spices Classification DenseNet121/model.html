@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+    <h1>Image Classifier</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="predictImage()">Predict</button>
+    <div id="predictions"></div>
+
+    <script>
+        async function predictImage() {
+            const inputElement = document.getElementById('imageInput');
+            const file = inputElement.files[0];
+
+            if (!file) {
+                alert('Please select an image.');
+                return;
+            }
+
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+
+            img.onload = async () => {
+                const model = await tf.loadLayersModel('http://127.0.0.1:8080/model.json');
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 224;
+                canvas.height = 224;
+                ctx.drawImage(img, 0, 0, 224, 224); // Resize the image
+
+                const imageData = ctx.getImageData(0, 0, 224, 224);
+                const data = imageData.data;
+
+                // Create a Float32Array for the image data
+                const normalizedData = new Float32Array(224 * 224 * 3);
+
+                for (let i = 0; i < 224 * 224; i++) {
+                    normalizedData[i * 3] = data[i * 4] / 255.0;
+                    normalizedData[i * 3 + 1] = data[i * 4 + 1] / 255.0;
+                    normalizedData[i * 3 + 2] = data[i * 4 + 2] / 255.0;
+                }
+
+                const inputTensor = tf.tensor4d(normalizedData, [1, 224, 224, 3]); // Correct shape
+
+                const predictions = model.predict(inputTensor);
+                const probabilities = await predictions.array();
+
+                const predictedClass = probabilities[0].indexOf(Math.max(...probabilities[0]));
+
+                const predictionDiv = document.getElementById('predictions');
+                predictionDiv.innerHTML = `Predicted class: ${predictedClass}`;
+            };
+        }
+    </script>
+</body>
+</html>
