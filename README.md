@@ -58,6 +58,8 @@ There are total 6510 data and 31 classes of indonesian spices images including:
   ![image](https://github.com/RempahRasa/RempahRasaML/assets/127374698/2249f8fb-e6d3-449f-ae0e-fa6e880008fd)
 - Visualization of data prediction
   ![image](https://github.com/RempahRasa/RempahRasaML/assets/127374698/0f8577b2-dbc1-45d4-915a-5c50e4af5e7b)
+- Confusion matrix
+  ![Confusion Matrix](https://github.com/RempahRasa/RempahRasaML/assets/142523228/24b79d16-ecc4-4944-a3f0-8fdb66b36275)
 
 
 ## Spices Classification model file (.h5 and tfjs for deployment)
